@@ -99,7 +99,7 @@ def perms_command(update: Update, context: CallbackContext) -> None:
 def user_info_command(update: Update, context: CallbackContext) -> None:
     print(context.args)
     #Need the error handling still. This command should return a text whenever we don't respond to another user.
-    if context.args == None:
+    if not context.args:
         reply = update.message.reply_to_message.from_user
         update.message.reply_markdown_v2(
         fr'{reply.mention_markdown_v2()}\'s\ ID is {reply.id}\.')

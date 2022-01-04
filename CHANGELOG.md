@@ -2,6 +2,12 @@
 
 All notable changes to [@PuddingBot](https://t.me/puddingbot) will be documented in this file.
 
+## [0.0.6-**b933652**] - 2022-01-04
+
+#### Fixed
+* /admins displays `@none` when admin has no username.
+   - Use usermention instead.
+
 ## [0.0.6-**bf84218**] - 2022-01-04
 
 #### Added

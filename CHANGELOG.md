@@ -2,10 +2,15 @@
 
 All notable changes to [@PuddingBot](https://t.me/puddingbot) will be documented in this file.
 
+## [0.0.6-**bf84218**] - 2022-01-04
+
+#### Added
+* /sticker display sticker ID and stickerset on reply.
+
 ## [0.0.5-**b52d58f**] - 2022-01-04
 
 #### Added
-* /del delete message on reply
+* /del delete message on reply.
 
 #### Fixed
 * /id

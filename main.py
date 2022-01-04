@@ -17,6 +17,7 @@ import statuses
 import config
 import about
 import uptime
+import utils
 
 from exceptions import NotImplemented
 
@@ -29,10 +30,9 @@ logger = logging.getLogger(__name__)
 
 def exit_handler():
     # Provide TOKEN and UPDATE_CHANNEL CONSTs in separate module.
-    bot = telegram.Bot(config.TOKEN)
     # chat = bot.get_chat(update.message.chat.id)
     # Add "logging" value in database to turn this off during development.
-    bot.sendMessage(config.UPDATE_CHANNEL, "I'm going down for maintenance. See ya!")
+    utils.bot.sendMessage(config.UPDATE_CHANNEL, "I'm going down for maintenance. See ya!")
 
 # Define a few command handlers. These usually take the two arguments update and
 # context.
@@ -99,7 +99,7 @@ def perms_command(update: Update, context: CallbackContext) -> None:
 def user_info_command(update: Update, context: CallbackContext) -> None:
     print(context.args)
     #Need the error handling still. This command should return a text whenever we don't respond to another user.
-    if context.args == None:
+    if not context.args:
         reply = update.message.reply_to_message.from_user
         update.message.reply_markdown_v2(
         fr'{reply.mention_markdown_v2()}\'s\ ID is {reply.id}\.')
@@ -120,6 +120,15 @@ def pin_message_command(update: Update, context: CallbackContext) -> None:
         # update.message.reply_text("You're not permitted to pin messages.")
         # # Text block version (general version)
         # update.message.reply_text("You don't have permission to perform this action.")
+
+def del_message_command(update: Update, context: CallbackContext) -> None:
+    #Need the error handling still. This command should return a text whenever we don't respond to another message.
+    reply = update.message.reply_to_message
+    if check_admin(update) == True:
+        reply.delete()
+        update.message.delete()
+    else: 
+        update.message.reply_text("Only admins may delete messages.")
 
 def mute_command(update: Update, context: CallbackContext) -> None:
     # Handle muting admins here, too.
@@ -193,9 +202,8 @@ def main() -> None:
     # Create the Updater and pass it your bot's token.
     updater = Updater(config.TOKEN)
     
-    bot = Bot(config.TOKEN)
-    bot.set_my_commands(list(Commands.values()))
-    bot.set_my_commands(list(AdminCommands.values()), scope=BotCommandScope(telegram.constants.BOT_COMMAND_SCOPE_ALL_CHAT_ADMINISTRATORS))
+    utils.bot.set_my_commands(list(Commands.values()))
+    utils.bot.set_my_commands(list(AdminCommands.values()), scope=BotCommandScope(telegram.constants.BOT_COMMAND_SCOPE_ALL_CHAT_ADMINISTRATORS))
 
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
@@ -218,6 +226,7 @@ def main() -> None:
 
     # Group management
     dispatcher.add_handler(CommandHandler("pin", pin_message_command))
+    dispatcher.add_handler(CommandHandler("del", del_message_command))
 
     # User info
     dispatcher.add_handler(CommandHandler("id", user_info_command))

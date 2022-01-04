@@ -8,6 +8,7 @@ import telegram
 from telegram import Update, ForceReply, ChatPermissions, Bot, BotCommand, BotCommandScope
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 from commands import Commands, AdminCommands
+from utils import escape_md
 import dogpic
 import catpic
 
@@ -103,6 +104,25 @@ def user_info_command(update: Update, context: CallbackContext) -> None:
         reply = update.message.reply_to_message.from_user
         update.message.reply_markdown_v2(
         fr'{reply.mention_markdown_v2()}\'s\ ID is {reply.id}\.')
+    else:
+        raise NotImplemented()
+        # reply = update.message.
+        # update.message.reply_markdown_v2(
+        # fr'{context.args}\'s\ ID is {context.args}\.')
+
+def sticker_info_command(update: Update, context: CallbackContext) -> None:
+    #Need the error handling still. This command should return a text whenever we don't respond to another user.
+    if not context.args:
+        reply = update.message.reply_to_message
+        if reply.sticker:
+            update.message.reply_markdown_v2(
+            f'\n'
+            f'Sticker ID: `{escape_md(reply.sticker.file_id)}`\n'
+            f'\n'
+            f'Stickerset: `{escape_md(reply.sticker.set_name)}`')
+        else:
+            update.message.reply_text(
+            f'Not a sticker!')
     else:
         raise NotImplemented()
         # reply = update.message.
@@ -230,6 +250,7 @@ def main() -> None:
 
     # User info
     dispatcher.add_handler(CommandHandler("id", user_info_command))
+    dispatcher.add_handler(CommandHandler("sticker", sticker_info_command))
 
     # User management
     dispatcher.add_handler(CommandHandler("mute", mute_command))

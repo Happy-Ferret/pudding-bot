@@ -10,3 +10,6 @@ pip-delete-this-directory.txt
 # Bot config file
 # Forks should rename config_example.py and add their own bot API token.
 config.py
+
+# Contributor specific plan files. Usually <name>.plan
+*.plan

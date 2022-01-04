@@ -121,6 +121,15 @@ def pin_message_command(update: Update, context: CallbackContext) -> None:
         # # Text block version (general version)
         # update.message.reply_text("You don't have permission to perform this action.")
 
+def del_message_command(update: Update, context: CallbackContext) -> None:
+    #Need the error handling still. This command should return a text whenever we don't respond to another message.
+    reply = update.message.reply_to_message
+    if check_admin(update) == True:
+        reply.delete()
+        update.message.delete()
+    else: 
+        update.message.reply_text("Only admins may delete messages.")
+
 def mute_command(update: Update, context: CallbackContext) -> None:
     # Handle muting admins here, too.
     reply = update.message.reply_to_message.from_user
@@ -218,6 +227,7 @@ def main() -> None:
 
     # Group management
     dispatcher.add_handler(CommandHandler("pin", pin_message_command))
+    dispatcher.add_handler(CommandHandler("del", del_message_command))
 
     # User info
     dispatcher.add_handler(CommandHandler("id", user_info_command))

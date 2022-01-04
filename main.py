@@ -80,11 +80,11 @@ def admins_command(update: Update, context: CallbackContext) -> None:
     bot = update.message.chat.bot
     chat = bot.get_chat(update.message.chat.id)
     admins = [
-        f"@{admin.user.username}"
+        f"{admin.user.mention_markdown_v2()}"
         for admin in chat.get_administrators()
         if admin.user.id != bot.get_me().id
     ]
-    update.message.reply_text("Group Administrators: " + " ".join(admins))
+    update.message.reply_markdown_v2("Group Administrators: " + ", ".join(admins))
 
 def perms_command(update: Update, context: CallbackContext) -> None:
     chat = update.message.chat.bot.get_chat(update.message.chat.id)

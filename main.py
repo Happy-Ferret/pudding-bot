@@ -7,7 +7,7 @@ import atexit
 import telegram
 from telegram import Update, ForceReply, ChatPermissions, Bot, BotCommand, BotCommandScope
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
-from commands import Commands, AdminCommands
+from commands import Commands, AdminCommands, DmCommands, OwnerCommands
 from utils import escape_md
 import dogpic
 import catpic
@@ -224,6 +224,7 @@ def main() -> None:
     
     utils.bot.set_my_commands(list(Commands.values()))
     utils.bot.set_my_commands(list(AdminCommands.values()), scope=BotCommandScope(telegram.constants.BOT_COMMAND_SCOPE_ALL_CHAT_ADMINISTRATORS))
+    utils.bot.set_my_commands(list(DmCommands.values()), scope=BotCommandScope(telegram.constants.BOT_COMMAND_SCOPE_ALL_PRIVATE_CHATS))
 
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher

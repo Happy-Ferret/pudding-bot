@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # pylint: disable=C0116,W0613
 
+USERNAME = "YOUR BOT USERNAME SANS THE @"
 TOKEN = "YOUR BOT TOKEN"
 UPDATE_CHANNEL = "UPDATE CHANNEL ID USED BY BOT TO POST MAINTENANCE UPDATES"
+ASSETS = "STORAGE LOCATION OF BINARY FILES (i e https://puddingbot.github.io/pudding-bot-assets/)"

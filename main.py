@@ -5,7 +5,7 @@ import logging
 import atexit
 
 import telegram
-from telegram import Update, ForceReply, ChatPermissions, Bot, BotCommand, BotCommandScope
+from telegram import Update, ForceReply, ChatPermissions, Bot, BotCommand, BotCommandScope, BotCommandScopeChatMember
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 from commands import Commands, AdminCommands, DmCommands, OwnerCommands
 from utils import escape_md
@@ -259,6 +259,9 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("ban", ban_command))
     dispatcher.add_handler(CommandHandler("unban", unban_command))
 
+    # Status filters
+    dispatcher.add_handler(MessageHandler(Filters.status_update.new_chat_members, new_member_update))
+
     # on non command i.e message - echo the message on Telegram
     # Make /echo, /pudding or /parrot a command so I can write and pin Pudding messages without switching accounts. Delete the original message after.
     # dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
@@ -271,6 +274,22 @@ def main() -> None:
     # start_polling() is non-blocking and will stop the bot gracefully.
     updater.idle()
 
+def new_member_update(update, context):
+    bot = update.message.chat.bot
+    chat = bot.get_chat(update.message.chat.id)
+
+    for member in update.message.new_chat_members:
+
+        if member.username == config.USERNAME:
+            for admin in chat.get_administrators():
+                if admin.status == "creator":
+                    bot.set_my_commands(list(OwnerCommands.values()), scope=BotCommandScopeChatMember(
+                        chat_id=chat.id,
+                        user_id=admin.user.id))
+
+            update.message.reply_markdown_v2(
+                about.GROUP_ADD_TEXT
+            )
 
 if __name__ == '__main__':
     main()

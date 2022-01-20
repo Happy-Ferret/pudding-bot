@@ -1,21 +1,29 @@
 #!/usr/bin/env python3
 # pylint: disable=C0116,W0613
 
-import os,sys
+import sys
 import subprocess
 
-def gitleaksInstalled():
-    try:
-        subprocess.call(["gitleaks", "version"])
+dev_null = subprocess.DEVNULL
+
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
+
+def gitleaks_installed():
+    exit_code = subprocess.run("gitleaks version", shell=True, stdout=dev_null, stderr=dev_null)
+
+    if exit_code.returncode == 0:
         return True
-    except FileNotFoundError:
+    else:
         return False
 
-if gitleaksInstalled():
-    exitCode = os.WEXITSTATUS(os.system("gitleaks protect -v --staged -c gitleaks.toml"))
-    if exitCode == 1:
-        print("Warning! gitleaks has detected sensitive information in your changes.")
+if gitleaks_installed():
+    exit_code = subprocess.run("gitleaks protect -v --staged -c gitleaks.toml", shell=True, stdout=dev_null, stderr=dev_null)
+
+    if exit_code.returncode == 1:
+        eprint("gitleaks has detected sensitive information in your changes. Commit aborted.")
+        subprocess.run("gitleaks protect -v --staged -c gitleaks.toml", shell=True)
         sys.exit(1)
 else:
-    print("gitleaks is not installed or in the PATH.")
+    eprint("gitleaks is not installed or in the PATH.")
     sys.exit(1)

@@ -1,5 +1,7 @@
 ![Activity Level](https://img.shields.io/badge/status-active-brightgreen.svg?style=flat-square)
 ![Stability](https://anima-os.github.io/stabl-badges/experimental.svg)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=PuddingBot_pudding-bot&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=PuddingBot_pudding-bot)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=PuddingBot_pudding-bot&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=PuddingBot_pudding-bot)
 
 <img src="profile.jpg" width="50%">
 

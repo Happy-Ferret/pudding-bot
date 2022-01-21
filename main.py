@@ -49,7 +49,6 @@ def about_command(update: Update, context: CallbackContext) -> None:
     update.message.reply_animation(animation=about.ANIMATION,
     caption=about.TEXT)
 
-
 def help_command(update: Update, context: CallbackContext) -> None:
     """Send a message when the command /help is issued."""
     update.message.reply_text('Help!')
@@ -175,13 +174,6 @@ def unmute_command(update: Update, context: CallbackContext) -> None:
         # Should wrap this into a common function call "not_admin(update)"
         update.message.reply_text(messages.PERM_LACK + statuses.IS_ADMIN)
 
-# def get_commands_command(update: Update, context: CallbackContext) -> None:
-#     # bot = utils.get_bot() // return a Bot object
-#     bot = Bot("5016982005:AAG6YJFXVkvyVha7_3cghe8gj-PIGAL9aXE")
-#     commands = bot.get_my_commands()
-#     update.message.reply_text(commands)
-
-
 def ban_command(update: Update, context: CallbackContext) -> None:
     reply = update.message.reply_to_message.from_user
     # perms = {"can_send_messages": False}
@@ -192,7 +184,6 @@ def ban_command(update: Update, context: CallbackContext) -> None:
         fr'{reply.mention_markdown_v2()}\ was banned\.')
     else: 
         update.message.reply_text(messages.PERM_LACK + statuses.IS_ADMIN)
-
 
 def unban_command(update: Update, context: CallbackContext) -> None:
     reply = update.message.reply_to_message.from_user

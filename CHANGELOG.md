@@ -2,6 +2,18 @@
 
 All notable changes to [@PuddingBot](https://t.me/puddingbot) will be documented in this file.
 
+## [0.0.6-**a5b15fb**] - 2022-01-21
+
+### Added
+* Display intro text when @PuddingBot is added to a group.
+* Command list specific to @PuddingBot DMs and for group owners.
+
+### Changed
+* Improved admin command list.
+
+### Fixed
+* [CVE-2022-21669](https://nvd.nist.gov/vuln/detail/CVE-2022-21669)
+
 ## [0.0.6-**b933652**] - 2022-01-04
 
 #### Fixed

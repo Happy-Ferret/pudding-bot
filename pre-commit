@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+# pylint: disable=C0116,W0613
+
+import sys
+import subprocess
+
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
+
+try:
+    subprocess.run(["gitleaks", "protect", "-v", "--staged", "-c", "gitleaks.toml"],
+                    check=True,
+                    universal_newlines=True,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT)
+except subprocess.CalledProcessError as e:
+    eprint("gitleaks has detected sensitive information in your changes. Commit aborted.")
+    print(e.output)
+    sys.exit(1)
+except FileNotFoundError:
+    eprint("gitleaks is not installed or in the PATH. Commit aborted.")
+    sys.exit(1)

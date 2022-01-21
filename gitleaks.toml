@@ -1,0 +1,4 @@
+[[rules]]
+id = "telegram-bot-token"
+description = "telegram bot token"
+regex = '''[0-9]{8,10}:[a-zA-Z0-9_-]{35}'''

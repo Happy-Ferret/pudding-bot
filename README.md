@@ -2,8 +2,10 @@
 
 ![Activity Level](https://img.shields.io/badge/status-active-brightgreen.svg?style=flat-square)
 ![Stability](https://anima-os.github.io/stabl-badges/experimental.svg)
+
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=PuddingBot_pudding-bot&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=PuddingBot_pudding-bot)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=PuddingBot_pudding-bot&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=PuddingBot_pudding-bot)
+[![Hits-of-Code](https://hitsofcode.com/github/PuddingBot/pudding-bot)](https://hitsofcode.com/github/PuddingBot/pudding-bot/view)
 
 __Maintainer time:__ [![Maintainer Hours](https://wakatime.com/badge/user/8c443f98-5766-4f1d-bd5c-37cd0a0d00af/project/cc61be82-ba2e-4e97-933e-88405b43fc86.svg?style=social)](https://wakatime.com/badge/user/8c443f98-5766-4f1d-bd5c-37cd0a0d00af/project/cc61be82-ba2e-4e97-933e-88405b43fc86 "Total time spent on the code and documentation by its core maintainer (@Happy-Ferret) since January 22, 2022")
 
